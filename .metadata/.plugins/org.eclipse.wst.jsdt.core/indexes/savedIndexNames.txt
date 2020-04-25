@@ -1,0 +1,8 @@
+INDEX VERSION 1.4+/Users/helisaarinen/Documents/Haaga-Helia/ohjelmointi2/4_CRUD_listaus&haku_GIT/etat4/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
+2196910440.index
+856144294.index
+2553801997.index
+3303339646.index
+735186087.index
+187833439.index
+2256297516.index
