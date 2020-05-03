@@ -1,0 +1,86 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<title>Lisää asiakas</title>
+</head>
+<body>
+<form id="tiedot">
+	<table>
+		<thead>
+			<tr>
+				<th>Etunimi</th>
+				<th>Sukunimi</th>
+				<th>Puhelinnumero</th>
+				<th>Sähköposti</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><input type="text" name="etunimi" id="etunimi"></td>
+				<td><input type="text" name="sukunimi" id="sukunimi"></td>
+				<td><input type="text" name="puhelin" id="puhelin"></td>
+				<td><input type="text" name="sposti" id="sposti"></td>
+				<td><input type="submit" id="tallenna" value="Lisää"></td>
+			</tr>
+		</tbody>
+	</table>
+</form>
+</body>
+<script>
+$(document).ready(function(){
+	$("#tiedot").validate({
+		rules: {
+			etunimi: {
+				required: true,
+				minlength: 2
+			},
+			sukunimi: {
+				required: true,
+				minlength: 2
+			},
+			puhelin: {
+				required: true,
+				minlength: 3,
+				number: true
+			},
+			sposti: {
+				required: true,
+				email: true
+			}
+		},
+		messages: {
+			etunimi: {
+				required: "Puuttuu",
+				minlength: "Liian lyhyt"
+			},
+			sukunimi: {
+				required: "Puuttuu",
+				minlength: "Liian lyhyt"
+			},
+			puhelin: {
+				required: "Puuttuu",
+				minlength: "Liian lyhyt"
+				number: "Ei puhelinnumero"
+			},
+			sposti: {
+				required: "Puuttuu",
+				email: "Ei sähköpostiosoite"
+			}
+		},
+		submitHandler: function(form) {
+			lisaaTiedot();
+		}
+	});
+	
+});
+
+
+</script>
+</html>

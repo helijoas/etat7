@@ -1,0 +1,14 @@
+0:0:0:0:0:0:0:1 - - [29/Apr/2020:14:49:31 +0300] "GET /Asiakkaat/listaaasiakkaat.jsp HTTP/1.1" 200 1620
+0:0:0:0:0:0:0:1 - - [29/Apr/2020:14:49:31 +0300] "GET /Asiakkaat/css/main.css HTTP/1.1" 200 469
+0:0:0:0:0:0:0:1 - - [29/Apr/2020:14:49:31 +0300] "GET /Asiakkaat/asiakkaat/ HTTP/1.1" 200 406
+0:0:0:0:0:0:0:1 - - [29/Apr/2020:14:51:55 +0300] "GET /Asiakkaat/listaaasiakkaat.jsp HTTP/1.1" 200 1560
+0:0:0:0:0:0:0:1 - - [29/Apr/2020:14:51:55 +0300] "GET /Asiakkaat/asiakkaat/ HTTP/1.1" 200 406
+0:0:0:0:0:0:0:1 - - [29/Apr/2020:15:15:29 +0300] "GET /Asiakkaat/lisaaasiakas.jsp HTTP/1.1" 200 906
+0:0:0:0:0:0:0:1 - - [29/Apr/2020:15:16:56 +0300] "GET /Asiakkaat/lisaaasiakas.jsp HTTP/1.1" 200 906
+0:0:0:0:0:0:0:1 - - [29/Apr/2020:15:16:56 +0300] "GET /Asiakkaat/css/main.css HTTP/1.1" 200 480
+0:0:0:0:0:0:0:1 - - [29/Apr/2020:15:17:44 +0300] "GET /Asiakkaat/lisaaasiakas.jsp HTTP/1.1" 200 906
+0:0:0:0:0:0:0:1 - - [29/Apr/2020:15:17:44 +0300] "GET /Asiakkaat/css/main.css HTTP/1.1" 200 489
+0:0:0:0:0:0:0:1 - - [29/Apr/2020:15:19:38 +0300] "GET /Asiakkaat/lisaaasiakas.jsp HTTP/1.1" 200 906
+0:0:0:0:0:0:0:1 - - [29/Apr/2020:15:19:38 +0300] "GET /Asiakkaat/css/main.css HTTP/1.1" 200 529
+0:0:0:0:0:0:0:1 - - [29/Apr/2020:15:23:53 +0300] "GET /Asiakkaat/lisaaasiakas.jsp HTTP/1.1" 200 906
+0:0:0:0:0:0:0:1 - - [29/Apr/2020:15:23:53 +0300] "GET /Asiakkaat/css/main.css HTTP/1.1" 200 512

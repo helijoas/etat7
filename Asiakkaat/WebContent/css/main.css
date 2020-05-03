@@ -15,7 +15,7 @@ th, td {
 	padding-left: 5px;
 }
 
-#hakurivi {
+.oikealle{
 	text-align: right;
 }
 
@@ -23,16 +23,21 @@ th, td {
 	width: 90%;
 }
 
-#listaus th {
+#listaus th, #tiedot th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
+  font-weight: normal;
   background-color: #F08080;
   color: black;
 }
 
-#hakunappi {
+#hakunappi, #tallenna {
 	font-family: 'Open Sans', sans-serif;
 	font-size: 14px;
 	padding: 2px 18px;
+}
+
+#takaisin, #uusiAsiakas {
+	cursor: pointer;
 }
