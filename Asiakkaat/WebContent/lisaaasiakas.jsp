@@ -99,6 +99,6 @@ function lisaaAsiakas(){
 			$("#etunimi", "#sukunimi", "#puhelin", "#sposti").val("");
 		}
 	}});
-}
+};
 </script>
 </html>

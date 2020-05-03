@@ -4,7 +4,7 @@ body {
 
 table {
   width: 100%;
-  border-collapse: collapse;
+  /* border-collapse: collapse; */
 }
 
 tr:nth-child(even) {
@@ -39,5 +39,9 @@ th, td {
 }
 
 #takaisin, #uusiAsiakas {
+	cursor: pointer;
+}
+
+.poista {
 	cursor: pointer;
 }
