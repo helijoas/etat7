@@ -42,7 +42,7 @@ public class Asiakkaat extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Asiakkaat.doPost()");
-		JSONObject jsonObj = new JsonStrToObj().convert(request);
+		JSONObject jsonObj = new JsonStrToObj().convert(request); //ottaa vastaan stringin ja muokkaa objektiksi
 		Asiakas asiakas = new Asiakas();
 		asiakas.setEtunimi(jsonObj.getString("etunimi"));
 		asiakas.setSukunimi(jsonObj.getString("sukunimi"));
@@ -66,11 +66,11 @@ public class Asiakkaat extends HttpServlet {
 		System.out.println("Asiakkaat.doDelete()");
 		String pathInfo = request.getPathInfo(); //haetaan kutsun polkutiedot
 		System.out.println("polku: " + pathInfo);
-		String poistettavaAsiakas = pathInfo.replace("/", "");
+		int asiakas_id = Integer.parseInt(pathInfo.replace("/", ""));
 		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();
 		Dao dao = new Dao();
-		if(dao.poistaAsiakas(poistettavaAsiakas)) { //metodi palauttaa true/false
+		if(dao.poistaAsiakas(asiakas_id)) { //metodi palauttaa true/false
 			out.println("{\"response\":1}"); //asiakkaan poistaminen onnistui {"response":1}
 		}else {
 			out.println("{\"response\":0}"); //asiakkaan poistaminen epäonnistui {"response":0}

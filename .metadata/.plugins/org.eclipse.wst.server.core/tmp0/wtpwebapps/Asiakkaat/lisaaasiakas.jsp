@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="scripts/main.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
 <link rel="stylesheet" type="text/css" href="css/main.css">
@@ -37,12 +38,12 @@
 	</table>
 </form>
 <span id="ilmo"></span>
-</body>
 <script>
 $(document).ready(function(){
 	$("#takaisin").click(function(){
 		document.location="listaaasiakkaat.jsp";
 	});
+	//Lomakkeen tietojen tarkistus
 	$("#tiedot").validate({
 		rules: {
 			etunimi: {
@@ -55,8 +56,7 @@ $(document).ready(function(){
 			},
 			puhelin: {
 				required: true,
-				minlength: 3,
-				number: true
+				minlength: 3
 			},
 			sposti: {
 				required: true,
@@ -74,8 +74,7 @@ $(document).ready(function(){
 			},
 			puhelin: {
 				required: "Puuttuu",
-				minlength: "Liian lyhyt",
-				number: "Ei puhelinnumero"
+				minlength: "Liian lyhyt"
 			},
 			sposti: {
 				required: "Puuttuu",
@@ -86,19 +85,23 @@ $(document).ready(function(){
 			lisaaAsiakas();
 		}
 	});
+	//Kursori valmiiksi etunimi-kenttään odottamaan
+	$("#etunimi").focus();
 	
 });
-
+ 
 function lisaaAsiakas(){
-	var formJsonStr = formDataJsonStr($("#tiedot").serializeArray());
+	var formJsonStr = formDataJsonStr($("#tiedot").serializeArray()); //muutetaan tiedot JSON-stringiksi
+	console.log(formJsonStr);
 	$.ajax({url:"asiakkaat", data:formJsonStr, type:"POST", dataType:"json", success:function(result){
 		if(result.response==0){
 			$("#ilmo").html("Asiakkaan lisääminen epäonnistui.");
 		} else if(result.response==1){
-			$("#ilmo").html("Auton lisääminen onnistui.");
-			$("#etunimi", "#sukunimi", "#puhelin", "#sposti").val("");
+			$("#ilmo").html("Asiakkaan lisääminen onnistui.");
+			$("#etunimi, #sukunimi, #puhelin, #sposti").val("");
 		}
 	}});
 };
 </script>
+</body>
 </html>

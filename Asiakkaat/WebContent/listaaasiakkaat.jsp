@@ -62,15 +62,15 @@ function haeAsiakkaat(){
 			htmlStr+="<td>"+field.sukunimi+"</td>";
 			htmlStr+="<td>"+field.puhelin+"</td>";
 			htmlStr+="<td>"+field.sposti+"</td>";
-			htmlStr+="<td><span class='poista' onclick=poista('"+field.asiakas_id+"')>Poista</span></td>";
+			htmlStr+="<td><span class='poista' onclick=poista("+field.asiakas_id+",'"+field.etunimi+"','"+field.sukunimi+"')>Poista</span></td>";
 			htmlStr+="</tr>";
 			$("#listaus tbody").append(htmlStr);
 		});
 	}});
 };
 
-function poista(asiakas_id, etunimi){
-	if(confirm("Poista asiakas " + asiakas_id + "?")){
+function poista(asiakas_id, etunimi, sukunimi){
+	if(confirm("Poista asiakas " + asiakas_id + " " + etunimi +" "+ sukunimi +"?")){
 		$.ajax({url:"asiakkaat/"+asiakas_id, type:"DELETE", dataType:"json", success:function(result){
 			if(result.response==0){
 				$("#ilmo").html("Asiakkaan poisto epäonnistui.");

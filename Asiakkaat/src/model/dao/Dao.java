@@ -90,7 +90,7 @@ public ArrayList<Asiakas> listaaKaikki(String hakusana){
 
 public boolean lisaaAsiakas(Asiakas asiakas) {
 	boolean paluuArvo=true;
-	sql="INSERT INTO asiakas (etunimi, sukunimi, puhelin, sposti) VALUES(?,?,?,?)";
+	sql="INSERT INTO asiakkaat(etunimi, sukunimi, puhelin, sposti) VALUES(?,?,?,?)";
 	try {
 		con = yhdista();
 		stmtPrep = con.prepareStatement(sql);
@@ -107,13 +107,13 @@ public boolean lisaaAsiakas(Asiakas asiakas) {
 	return paluuArvo;
 }
 
-public boolean poistaAsiakas(String asiakas_id) {
+public boolean poistaAsiakas(int asiakas_id) {
 	boolean paluuArvo=true;
 	sql="DELETE FROM asiakkaat WHERE asiakas_id=?";
 	try {
 		con = yhdista();
 		stmtPrep=con.prepareStatement(sql);
-		stmtPrep.setString(1, asiakas_id);
+		stmtPrep.setInt(1, asiakas_id);
 		stmtPrep.executeUpdate();
 		con.close();
 	} catch (Exception e) {
