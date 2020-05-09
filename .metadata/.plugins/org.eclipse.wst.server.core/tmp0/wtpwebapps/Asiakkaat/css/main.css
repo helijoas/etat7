@@ -15,6 +15,17 @@ th, td {
 	padding-left: 5px;
 }
 
+a:link {
+	text-decoration: none;
+	cursor: pointer;
+	color: black;
+}
+
+a:visited {
+	text-decoration: none;
+	cursor: pointer;
+}
+
 .oikealle{
 	text-align: right;
 }

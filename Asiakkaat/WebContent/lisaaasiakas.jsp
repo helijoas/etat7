@@ -38,6 +38,7 @@
 	</table>
 </form>
 <span id="ilmo"></span>
+</body>
 <script>
 $(document).ready(function(){
 	$("#takaisin").click(function(){
@@ -103,5 +104,4 @@ function lisaaAsiakas(){
 	}});
 };
 </script>
-</body>
 </html>
