@@ -5,18 +5,16 @@
 <head>
 <meta charset="UTF-8">
 <script src="scripts/main.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
 <link rel="stylesheet" type="text/css" href="css/main.css">
 <title>Lisää asiakas</title>
 </head>
-<body>
+<body onkeydown="tutkiKey(event)">
 <form id="tiedot">
 	<table>
 		<thead>
 			<tr>
 				<th colspan="4"></th>
-				<th class="oikealle"><span id="takaisin">Listaukseen</span></th>
+				<th class="oikealle"><a href="listaaasiakkaat.jsp" id="takaisin">Listaukseen</a></th>
 			</tr>
 			<tr>
 				<th>Etunimi</th>
@@ -32,7 +30,7 @@
 				<td><input type="text" name="sukunimi" id="sukunimi"></td>
 				<td><input type="text" name="puhelin" id="puhelin"></td>
 				<td><input type="text" name="sposti" id="sposti"></td>
-				<td><input type="submit" id="tallenna" value="Lisää"></td>
+				<td><input type="button" name="nappi" id="tallenna" value="Lisää" onclick="lisaaAsiakas()"></td>
 			</tr>
 		</tbody>
 	</table>
@@ -40,68 +38,57 @@
 <span id="ilmo"></span>
 </body>
 <script>
-$(document).ready(function(){
-	$("#takaisin").click(function(){
-		document.location="listaaasiakkaat.jsp";
-	});
-	//Lomakkeen tietojen tarkistus
-	$("#tiedot").validate({
-		rules: {
-			etunimi: {
-				required: true,
-				minlength: 2
-			},
-			sukunimi: {
-				required: true,
-				minlength: 2
-			},
-			puhelin: {
-				required: true,
-				minlength: 3
-			},
-			sposti: {
-				required: true,
-				email: true
-			}
-		},
-		messages: {
-			etunimi: {
-				required: "Puuttuu",
-				minlength: "Liian lyhyt"
-			},
-			sukunimi: {
-				required: "Puuttuu",
-				minlength: "Liian lyhyt"
-			},
-			puhelin: {
-				required: "Puuttuu",
-				minlength: "Liian lyhyt"
-			},
-			sposti: {
-				required: "Puuttuu",
-				email: "Ei sähköpostiosoite"
-			}
-		},
-		submitHandler: function(form) {
-			lisaaAsiakas();
-		}
-	});
-	//Kursori valmiiksi etunimi-kenttään odottamaan
-	$("#etunimi").focus();
-	
-});
- 
+
+function tutkiKey(event){
+	if(event.keyCode==13){ //13 = enter
+		lisaaTiedot();
+	}
+}
+
+document.getElementById("etunimi").focus(); //viedään kursori etunimi-kenttään sivun latauksen yhteydessä
+
+//funktio tietojen lisäämistä varten. Kutsutaan backin POST-metodia ja välitetään kutsun mukana uudet tiedot json-stringinä
 function lisaaAsiakas(){
-	var formJsonStr = formDataJsonStr($("#tiedot").serializeArray()); //muutetaan tiedot JSON-stringiksi
-	console.log(formJsonStr);
-	$.ajax({url:"asiakkaat", data:formJsonStr, type:"POST", dataType:"json", success:function(result){
-		if(result.response==0){
-			$("#ilmo").html("Asiakkaan lisääminen epäonnistui.");
-		} else if(result.response==1){
-			$("#ilmo").html("Asiakkaan lisääminen onnistui.");
-			$("#etunimi, #sukunimi, #puhelin, #sposti").val("");
+	var ilmo="";
+	var meili= new RegExp("@");
+	if(document.getElementById("etunimi").value.length<2){
+		ilmo="Etunimi on liian lyhyt";
+	} else if(document.getElementById("sukunimi").value.length<2){
+		ilmo="Sukunimi on liian lyhyt";
+	} else if(document.getElementById("puhelin").value*1!=document.getElementById("puhelin").value){
+		ilmo="Puhelinnumero ei kelpaa";
+	} //else if(meili.test(document.getElementById("sposti"))==false){
+	//	ilmo="Sähköpostiosoite ei kelpaa";
+	//}
+	if(ilmo!=""){
+		document.getElementById("ilmo").innerHTML=ilmo;
+		setTimeout(function(){ document.getElementById("ilmo").innerHTML=""; }, 3000);
+		return;
+	}
+	document.getElementById("etunimi").value=siivoa(document.getElementById("etunimi").value);
+	document.getElementById("sukunimi").value=siivoa(document.getElementById("sukunimi").value);
+	document.getElementById("puhelin").value=siivoa(document.getElementById("puhelin").value);
+	document.getElementById("sposti").value=siivoa(document.getElementById("sposti").value);
+	
+	var formJsonStr=formDataToJSON(document.getElementById("tiedot")); //muutetaan lomakkeen tiedot json-stringiksi
+	//Lähetetään uudet tiedot backendiin
+	fetch("asiakkaat",{ //Lähetetään kutsu backendiin
+		method: 'POST',
+		body: formJsonStr
+	})
+	.then(function(response){ //Odotetaan vastausta ja muutetaan JSON-vastaus objektiksi
+		return response.json()
+	})
+	.then(function(responseJson){ //Otetaan vastaan objekti responseJson-parametrissa
+		var vastaus=responseJson.response;
+		if(vastaus==0){
+			document.getElementById("ilmo").innerHTML= "Asiakkaan lisääminen epäonnistui.";
+		} else if(vastaus==1){
+			document.getElementById("ilmo").innerHTML= "Asiakkaan lisääminen onnistui.";
 		}
-	}});
-};
+		setTimeout(function(){ document.getElementById("ilmo").innerHTML="";}, 5000);
+	});
+	document.getElementById("tiedot").reset(); //Tyhjennetään tiedot-lomake
+}
 </script>
 </html>

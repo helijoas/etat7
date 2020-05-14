@@ -1,0 +1,62 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="scripts/main.js"></script>
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<title>Lisää asiakas</title>
+</head>
+<body onkeydown="tutkiKey(event)">
+<form id="tiedot">
+	<table>
+		<thead>
+			<tr>
+				<th colspan="4"></th>
+				<th class="oikealle"><a href="listaaasiakkaat.jsp" id="takaisin">Listaukseen</a></th>
+			</tr>
+			<tr>
+				<th>Etunimi</th>
+				<th>Sukunimi</th>
+				<th>Puhelinnumero</th>
+				<th>Sähköposti</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><input type="text" name="etunimi" id="etunimi"></td>
+				<td><input type="text" name="sukunimi" id="sukunimi"></td>
+				<td><input type="text" name="puhelin" id="puhelin"></td>
+				<td><input type="text" name="sposti" id="sposti"></td>
+				<td><input type="button" name="nappi" id="tallenna" value="Lisää" onclick="lisaaTiedot()"></td>
+			</tr>
+		</tbody>
+	</table>
+</form>
+<span id="ilmo"></span>
+</body>
+<script>
+
+function tutkiKey(event){
+	if(event.keyCode==13){ //13 = enter
+		lisaaTiedot();
+	}
+}
+
+document.getElementById("etunimi").focus(); //viedään kursori etunimi-kenttään sivun latauksen yhteydessä
+
+//funktio tietojen lisäämistä varten. Kutsutaan backin POST-metodia ja välitetään kutsun mukana uudet tiedot json-stringinä
+function lisaaAsiakas(){
+	var ilmo="";
+	if(document.getElementById("etunimi").value.length<2){
+		ilmo="Nimi on liian lyhyt";
+	} else if(document.getElementById("sukunimi").value.length<2){
+		ilmo="Nimi on liian lyhyt";
+	} else if(document.getElementById("puhelin").value*1!=document.getElementById("puhelin").value){
+		ilmo=""
+	}
+}
+</script>
+</html>

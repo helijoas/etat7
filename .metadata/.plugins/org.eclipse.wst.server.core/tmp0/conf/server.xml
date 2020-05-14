@@ -153,7 +153,7 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="/Users/helisaarinen/Documents/Haaga-Helia/ohjelmointi2/4_CRUD_listaus&amp;haku_GIT/etat4/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/ROOT" path="" reloadable="false"/><Context docBase="/Users/helisaarinen/Documents/Haaga-Helia/ohjelmointi2/4_CRUD_listaus&amp;haku_GIT/etat4/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/Asiakkaat" path="/Asiakkaat" reloadable="true" source="org.eclipse.jst.jee.server:Asiakkaat"/></Host>
+      <Context docBase="/Users/helisaarinen/Documents/Haaga-Helia/ohjelmointi2/7_perinteinen_dynaminen_verkkoprojekti_ja_natiivi_JS/etat7/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/ROOT" path="" reloadable="false"/><Context docBase="/Users/helisaarinen/Documents/Haaga-Helia/ohjelmointi2/7_perinteinen_dynaminen_verkkoprojekti_ja_natiivi_JS/etat7/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/Asiakkaat" path="/Asiakkaat" reloadable="true" source="org.eclipse.jst.jee.server:Asiakkaat"/></Host>
     </Engine>
   </Service>
 </Server>

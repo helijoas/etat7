@@ -3,19 +3,16 @@ package control;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.json.JSONObject;
-
 import model.Asiakas;
 import model.dao.Dao;
 
-
+// REST-metodeja asiakkaiden hallintaan
 @WebServlet("/asiakkaat/*")
 public class Asiakkaat extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -42,14 +39,18 @@ public class Asiakkaat extends HttpServlet {
 		}else if(pathInfo.indexOf("haeyksi")!=-1) { // polussa on haeyksi, eli haetaan yhden auton tiedot
 			int asiakas_id = Integer.parseInt(pathInfo.replace("/haeyksi/", "")); // poistaa polusta "/haeyksi/", jäljelle jää asiakas_id
 			Asiakas asiakas = dao.etsiAsiakas(asiakas_id);
-			JSONObject JSON = new JSONObject();
-			JSON.put("etunimi", asiakas.getEtunimi());
-			JSON.put("sukunimi", asiakas.getSukunimi());
-			JSON.put("puhelin", asiakas.getPuhelin());
-			JSON.put("sposti", asiakas.getSposti());
-			JSON.put("asiakas_id", asiakas.getAsiakas_id());
-			strJSON = JSON.toString();
-		}else {
+			if(asiakas==null) {
+				strJSON="{}";
+			}else {
+				JSONObject JSON = new JSONObject();
+				JSON.put("etunimi", asiakas.getEtunimi());
+				JSON.put("sukunimi", asiakas.getSukunimi());
+				JSON.put("puhelin", asiakas.getPuhelin());
+				JSON.put("sposti", asiakas.getSposti());
+				JSON.put("asiakas_id", asiakas.getAsiakas_id());
+				strJSON = JSON.toString();
+			}
+		} else {
 			String hakusana = pathInfo.replace("/", "");
 			asiakkaat = dao.listaaKaikki(hakusana);
 			strJSON = new JSONObject().put("asiakkaat", asiakkaat).toString();

@@ -1,0 +1,87 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+<title>Asiakkaat</title>
+</head>
+<body onkeydown="tutkiKey(event)">
+<table id="listaus">
+	<thead>
+		<tr>
+			<th colspan="4"></th>
+			<th><a id="uusiAsiakas" href="lisaaasiakas.jsp">Lisää uusi asiakas</a></th>
+		</tr>
+		<tr>
+			<th colspan="2"></th>
+			<th class="oikealle">Hakusana:</th>
+			<th><input type="text" id="hakusana"></th>
+			<th><input type="button" value="Hae" id="hakunappi" onClick="haeAsiakkaat()"></th> 
+		</tr>
+		<tr>
+			<th>Etunimi</th>
+			<th>Sukunimi</th>
+			<th>Puhelinnumero</th>
+			<th>Sähköposti</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody id="tbody">
+	</tbody>
+</table>
+<script>
+haeAsiakkaat();
+document.getElementById("hakusana").focus(); //viedään kursori hakusana-kenttään
+
+function tutkiKey(event){
+	if(event.keyCode==13){ //13=enter
+		haeAsiakkaat();
+	}
+}
+
+// funktio tietojen hakemista varten
+function haeAsiakkaat(){
+	document.getElementById("tbody").innerHTML = "";
+	fetch("asiakkaat/" + document.getElementById("hakusana").value,{//Lähetetään kutsu backendiin
+		method: 'GET'
+	})
+	.then(function(response) { //Odotetaan vastausta ja muutetaan JSON-vastaus objektiksi
+		return response.json()
+	})
+	.then(function(responseJson){ //Otetaan vastaan objekti responseJson-parametrissa
+		var asiakkaat = responseJson.asiakkaat;
+		var htmlStr="";
+		for(var i=0; i<asiakkaat.length; i++){
+			htmlStr+="<tr>";
+			htmlStr+="<td>"+asiakkaat[i].etunimi+"</td>";
+			htmlStr+="<td>"+asiakkaat[i].sukunimi+"</td>";
+			htmlStr+="<td>"+asiakkaat[i].puhelin+"</td>";
+			htmlStr+="<td>"+asiakkaat[i].sposti+"</td>";
+			htmlStr+="<td><a href='muutaauto.jsp?asiakas_id="+asiakkaat[i].asiakas_id+"'>Muuta</a>&nbsp;";
+			htmlStr+="<span class='poista' onclick=poista('"+asiakkaat[i].asiakas_id+"')>Poista</span></td>";
+			htmlStr+="</tr>";
+		}
+		document.getElementById("tbody").innerHTML = htmlStr;
+	})
+}
+
+function poista(asiakas_id, etunimi, sukunimi){
+	if(confirm("Poista asiakas " + asiakas_id + " " + etunimi +" "+ sukunimi +"?")){
+		$.ajax({url:"asiakkaat/"+asiakas_id, type:"DELETE", dataType:"json", success:function(result){
+			if(result.response==0){
+				$("#ilmo").html("Asiakkaan poisto epäonnistui.");
+			} else if(result.response==1){
+				$("#rivi_"+asiakas_id).css("background-color", "red");
+				alert("Asiakkaan " + asiakas_id + " poisto onnistui.");
+				haeAsiakkaat();
+			}
+		}});
+	}
+}
+
+</script>
+</body>
+</html>

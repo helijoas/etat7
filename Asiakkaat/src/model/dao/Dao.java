@@ -1,5 +1,4 @@
 package model.dao;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -35,10 +34,10 @@ public ArrayList<Asiakas> listaaKaikki(){
 	sql = "SELECT * FROM asiakkaat";
 	try {
 		con = yhdista();
-		if(con!=null) {
+		if(con!=null) { // jos yhteys onnistui
 			stmtPrep = con.prepareStatement(sql);
 			rs = stmtPrep.executeQuery();
-			if(rs!=null) {
+			if(rs!=null) { // jos kysely onnistui
 				while(rs.next()) {
 					Asiakas asiakas = new Asiakas();
 					asiakas.setAsiakas_id(rs.getInt(1));
@@ -62,14 +61,14 @@ public ArrayList<Asiakas> listaaKaikki(String hakusana){
 	sql = "SELECT * FROM asiakkaat WHERE etunimi LIKE ? or sukunimi LIKE ? or puhelin LIKE ? or sposti LIKE ?";
 	try {
 		con = yhdista();
-		if(con!=null) {
+		if(con!=null) { // jos yhteys onnistui
 			stmtPrep = con.prepareStatement(sql);
 			stmtPrep.setString(1, "%" + hakusana + "%");
 			stmtPrep.setString(2, "%" + hakusana + "%");
 			stmtPrep.setString(3, "%" + hakusana + "%");
 			stmtPrep.setString(4, "%" + hakusana + "%");
 			rs = stmtPrep.executeQuery();
-			if(rs!=null) {
+			if(rs!=null) { // jos kysely onnistui
 				while(rs.next()) {
 					Asiakas asiakas = new Asiakas();
 					asiakas.setAsiakas_id(rs.getInt(1));

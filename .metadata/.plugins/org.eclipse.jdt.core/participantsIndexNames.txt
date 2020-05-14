@@ -1,3 +1,5 @@
 INDEX VERSION 1.131
 /Users/helisaarinen/Documents/Haaga-Helia/ohjelmointi2/4_CRUD_listaus&haku_GIT/etat4/.metadata/.plugins/org.eclipse.jst.jsp.core/jspsearch/2256297516.index
 /Asiakkaat/src
+/Users/helisaarinen/Documents/Haaga-Helia/ohjelmointi2/7_perinteinen_dynaminen_verkkoprojekti_ja_natiivi_JS/etat7/.metadata/.plugins/org.eclipse.jst.jsp.core/jspsearch/2256297516.index
+/Asiakkaat/src
